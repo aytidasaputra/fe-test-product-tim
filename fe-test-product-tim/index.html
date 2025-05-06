@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tes Teknis Frontend Engineer - PRODUCT TIM</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --accent-color: #e74c3c;
+            --text-color: #2c3e50;
+            --light-bg: #ecf0f1;
+            --border-color: #bdc3c7;
+            --white: #ffffff;
+            --section-bg: #f9f9f9;
+            --header-bg: #1a365d;
+            --footer-bg: #2c3e50;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 0;
+            background-color: var(--light-bg);
+        }
+        
+        .page-container {
+            background-color: var(--white);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            position: relative;
+        }
+        
+        .header {
+            background-color: var(--header-bg);
+            color: var(--white);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 5px solid var(--accent-color);
+        }
+        
+        .header h1 {
+            color: var(--white);
+            margin: 0;
+            font-size: 28px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .header-subtitle {
+            font-size: 16px;
+            opacity: 0.8;
+            font-weight: normal;
+            margin-top: 5px;
+        }
+        
+        .logo-container {
+            text-align: center;
+        }
+        
+        .logo {
+            height: 80px;
+            width: auto;
+        }
+        
+        .main-content {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            border-radius: 8px;
+            background-color: var(--section-bg);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .section-header {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 12px 20px;
+            margin: 0;
+            font-size: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .section-header:hover {
+            background-color: var(--primary-color);
+        }
+        
+        .section-content {
+            padding: 20px;
+            display: none;
+        }
+        
+        .section-content.active {
+            display: block;
+        }
+        
+        .arrow {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .arrow.down {
+            transform: rotate(180deg);
+        }
+        
+        h3 {
+            color: var(--primary-color);
+            margin-top: 20px;
+            font-size: 18px;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 10px;
+        }
+        
+        ul, ol {
+            padding-left: 25px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        code {
+            background-color: var(--light-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+        }
+        
+        pre {
+            background-color: var(--light-bg);
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .code-block {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            border: 1px solid var(--border-color);
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .percentage {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+        
+        .emphasis {
+            font-weight: bold;
+            background-color: rgba(231, 76, 60, 0.1);
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        
+        .footer {
+            background-color: var(--footer-bg);
+            color: var(--white);
+            text-align: center;
+            padding: 20px;
+            border-top: 5px solid var(--accent-color);
+        }
+        
+        .footer p {
+            margin: 5px 0;
+        }
+        
+        .print-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+        }
+        
+        .print-button:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        /* For printing */
+        @media print {
+            body {
+                padding: 0;
+                background-color: white;
+            }
+            
+            .page-container {
+                box-shadow: none;
+                margin: 0;
+            }
+            
+            .section-content {
+                display: block !important;
+            }
+            
+            .print-button {
+                display: none;
+            }
+            
+            .arrow {
+                display: none;
+            }
+            
+            .page-break {
+                page-break-before: always;
+            }
+            
+            .section-header {
+                background-color: var(--secondary-color) !important;
+                color: white !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            .header, .footer {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="print-button" onclick="window.print()">Print PDF</button>
+    
+    <div class="page-container">
+        <div class="header">
+            <div>
+                <h1>Tes Teknis Frontend Engineer</h1>
+                <div class="header-subtitle">Pengembangan Sistem Manajemen Asuransi</div>
+            </div>
+            <div class="logo-container">
+                <svg class="logo" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="200" height="80" fill="#3498db"/>
+                    <polygon points="20,20 180,20 180,60 20,60" fill="#2980b9"/>
+                    <circle cx="100" cy="40" r="20" fill="#e74c3c"/>
+                    <text x="100" y="45" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="middle" font-weight="bold">PRODUCT TIM</text>
+                </svg>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <div class="section-header" onclick="toggleSection(this)">
+                    DESKRIPSI PROYEK
+                    <svg class="arrow" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="white" d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
+                    </svg>
+                </div>
+                <div class="section-content">
+                    <p>Buatlah sebuah aplikasi web "Sistem Manajemen Asuransi" menggunakan HTML, CSS, dan TypeScript. Anda diperbolehkan menggunakan framework JavaScript modern (React, Vue, Angular, dll) sesuai preferensi Anda.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" onclick="toggleSection(this)">
+                    WAKTU PENGERJAAN
+                    <svg class="arrow" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="white" d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
+                    </svg>
+                </div>
+                <div class="section-content">
+                    <p>Maksimal 3 hari sejak menerima tes ini.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" onclick="toggleSection(this)">
+                    PERSYARATAN FUNGSIONAL
+                    <svg class="arrow" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="white" d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
+                    </svg>
+                </div>
+                <div class="section-content">
+                    <h3>1. Manajemen Polis Asuransi</h3>
+                    <ul>
+                        <li>Menampilkan daftar polis asuransi</li>
+                        <li>Menambahkan polis asuransi baru</li>
+                        <li>Melihat detail polis</li>
+                        <li>Mengubah status polis (aktif/non-aktif/klaim)</li>
+                        <li>Mengedit informasi polis</li>
+                    </ul>
+
+                    <h3>2. Fitur Polis Asuransi</h3>
+                    <ul>
+                        <li>Setiap polis harus memiliki: nama pemegang polis, jenis asuransi (kesehatan/jiwa/kendaraan), nomor polis, nilai pertanggungan, tanggal mulai, tanggal berakhir, dan status (aktif/non-aktif/klaim)</li>
+                        <li>Kemampuan untuk memfilter polis berdasarkan jenis asuransi dan status</li>
+                        <li>Kemampuan untuk mencari polis berdasarkan nama pemegang atau nomor polis</li>
+                    </ul>
+
+                    <h3>3. Autentikasi Sederhana</h3>
+                    <ul>
+                        <li>Halaman login sederhana (tanpa backend sebenarnya, cukup simulasikan dengan local storage)</li>
+                        <li>Hanya pengguna yang "login" yang bisa mengakses aplikasi</li>
+                    </ul>
+
+                    <h3>4. Kalkulator Premi</h3>
+                    <p>Implementasikan kalkulator sederhana untuk menghitung premi berdasarkan:</p>
+                    <ul>
+                        <li>Jenis asuransi</li>
+                        <li>Nilai pertanggungan</li>
+                        <li>Usia pemegang polis (untuk asuransi kesehatan/jiwa)</li>
+                        <li>Jenis kendaraan (untuk asuransi kendaraan)</li>
+                    </ul>
+
+                    <h3>5. Persistensi Data</h3>
+                    <ul>
+                        <li>Menggunakan localStorage untuk menyimpan data polis agar tetap ada setelah halaman di-refresh</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" onclick="toggleSection(this)">
+                    PERSYARATAN TEKNIS
+                    <svg class="arrow" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="white" d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
+                    </svg>
+                </div>
+                <div class="section-content">
+                    <h3>Teknologi yang Wajib Digunakan</h3>
+                    <ul>
+                        <li>TypeScript untuk semua kode JavaScript</li>
+                        <li>Unit Testing menggunakan Jest, React Testing Library, atau framework testing lainnya</li>
+                        <li>Deployment wajib dilakukan ke Vercel</li>
+                    </ul>
+
+                    <h3>UI/UX</h3>
+                    <ul>
+                        <li>Desain yang responsif (mobile-first approach)</li>
+                        <li>UI yang intuitif dan mudah digunakan</li>
+                        <li>Implementasi tema gelap/terang (dark/light mode)</li>
+                        <li>Transisi dan animasi sederhana untuk meningkatkan pengalaman pengguna</li>
+                    </ul>
+
+                    <h3>Kode</h3>
+                    <ul>
+                        <li>Organisasi kode yang rapi dan terstruktur</li>
+                        <li>Penamaan variabel dan fungsi yang jelas dan konsisten</li>
+                        <li>Penggunaan komentar yang tepat</li>
+                        <li>Penanganan error yang baik</li>
+                        <li>Type safety dengan TypeScript yang baik (minimal penggunaan any)</li>
+                    </ul>
+
+                    <h3>Bonus Point (Opsional)</h3>
+                    <ul>
+                        <li>Dashboard visual dengan grafik ringkasan polis (distribusi berdasarkan jenis, status, dll)</li>
+                        <li>Simulasi notifikasi untuk polis yang akan berakhir dalam 30 hari</li>
+                        <li>Test coverage di atas 70%</li>
+                        <li>Fitur pengajuan klaim sederhana</li>
+                        <li>Ekspor data polis ke format PDF atau Excel (simulasi)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" onclick="toggleSection(this)">
+                    PENGIRIMAN
+                    <svg class="arrow" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="white" d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
+                    </svg>
+                </div>
+                <div class="section-content">
+                    <ul>
+                        <li>Push kode Anda ke repository GitHub publik</li>
+                        <li class="emphasis">WAJIB deploy aplikasi ke platform Vercel</li>
+                        <li>Sertakan README yang berisi:
+                            <ul>
+                                <li>Instruksi instalasi dan menjalankan aplikasi secara lokal</li>
+                                <li>Penjelasan singkat tentang struktur kode dan arsitektur aplikasi</li>
+                                <li>Teknologi yang digunakan</li>
+                                <li>Fitur-fitur yang telah diimplementasikan</li>
+                                <li>Kendala yang dihadapi dan solusinya</li>
+                                <li>Screenshot aplikasi</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" onclick="toggleSection(this)">
+                    KRITERIA PENILAIAN
+                    <svg class="arrow" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="white" d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
+                    </svg>
+                </div>
+                <div class="section-content">
+                    <ul>
+                        <li>Fungsionalitas (<span class="percentage">35%</span>): Semua fitur berfungsi dengan baik</li>
+                        <li>Kualitas Kode (<span class="percentage">25%</span>): Kode yang bersih, terstruktur, dan mudah dibaca</li>
+                        <li>TypeScript Implementation (<span class="percentage">15%</span>): Penggunaan tipe yang tepat dan konsisten</li>
+                        <li>Testing (<span class="percentage">10%</span>): Kelengkapan dan kualitas unit test</li>
+                        <li>UI/UX (<span class="percentage">10%</span>): Tampilan yang menarik dan pengalaman pengguna yang baik</li>
+                        <li>Kreativitas (<span class="percentage">5%</span>): Pendekatan inovatif dan fitur tambahan yang bermanfaat</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" onclick="toggleSection(this)">
+                    DATA AWAL
+                    <svg class="arrow" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="white" d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
+                    </svg>
+                </div>
+                <div class="section-content">
+                    <p>Untuk memudahkan pengerjaan, Anda dapat menggunakan data awal berikut untuk polis asuransi:</p>
+                    
+                    <div class="code-block">
+<pre>interface Policy {
+  id: string;
+  holderName: string;
+  type: 'kesehatan' | 'jiwa' | 'kendaraan';
+  coverage: number;
+  startDate: string;
+  endDate: string;
+  status: 'aktif' | 'non-aktif' | 'klaim';
+  vehicleType?: string;
+  vehicleNumber?: string;
+}
+
+const samplePolicies: Policy[] = [
+  {
+    id: "POL001",
+    holderName: "Budi Santoso",
+    type: "kesehatan",
+    coverage: 50000000,
+    startDate: "2025-01-01",
+    endDate: "2026-01-01",
+    status: "aktif"
+  },
+  {
+    id: "POL002",
+    holderName: "Siti Rahma",
+    type: "jiwa",
+    coverage: 100000000,
+    startDate: "2024-06-15",
+    endDate: "2034-06-15",
+    status: "aktif"
+  },
+  {
+    id: "POL003",
+    holderName: "Agus Wijaya",
+    type: "kendaraan",
+    vehicleType: "mobil",
+    vehicleNumber: "B 1234 CD",
+    coverage: 200000000,
+    startDate: "2024-11-10",
+    endDate: "2025-11-10",
+    status: "klaim"
+  }
+];</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Selamat mengerjakan! Kami menantikan hasil karya Anda.</p>
+            <p><strong>PRODUCT TIM</strong></p>
+        </div>
+    </div>
+
+    <script>
+        // Toggle sections
+        function toggleSection(element) {
+            const content = element.nextElementSibling;
+            const arrow = element.querySelector('.arrow');
+            
+            content.classList.toggle('active');
+            arrow.classList.toggle('down');
+            
+            // Save state to localStorage
+            const sectionId = element.textContent.trim();
+            localStorage.setItem('section_' + sectionId, content.classList.contains('active'));
+        }
+        
+        // Initialize sections
+        window.onload = function() {
+            // Open first section by default
+            const firstSection = document.querySelector('.section-header');
+            if (firstSection) {
+                const content = firstSection.nextElementSibling;
+                const arrow = firstSection.querySelector('.arrow');
+                content.classList.add('active');
+                arrow.classList.add('down');
+            }
+            
+            // Restore sections state from localStorage
+            document.querySelectorAll('.section-header').forEach(header => {
+                const sectionId = header.textContent.trim();
+                const isOpen = localStorage.getItem('section_' + sectionId) === 'true';
+                
+                if (isOpen) {
+                    const content = header.nextElementSibling;
+                    const arrow = header.querySelector('.arrow');
+                    content.classList.add('active');
+                    arrow.classList.add('down');
+                }
+            });
+            
+            // Print PDF automatically if URL has print=true
+            if (window.location.search.includes('print=true')) {
+                setTimeout(() => {
+                    window.print();
+                }, 1000);
+            }
+        }
+    </script>
+</body>
+</html>
